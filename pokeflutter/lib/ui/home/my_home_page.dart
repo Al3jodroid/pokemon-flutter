@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokeflutter/counter_provider.dart';
+import 'package:pokeflutter/ui/home/pokemon_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -13,23 +13,22 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    var counterProvider = Provider.of<CounterProvider>(context);
+    var pokemonViewModel = Provider.of<PokemonViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: renderBodyContent(counterProvider),
+      body: renderBodyContent(pokemonViewModel),
       floatingActionButton: FloatingActionButton(
-        onPressed: counterProvider.incrementCounter,
-        tooltip: 'Increment',
+        onPressed: pokemonViewModel.getPokemonImage,
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  Widget renderBodyContent(CounterProvider counterProvider) {
+  Widget renderBodyContent(PokemonViewModel pokemonViewModel) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -38,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
             'You have pushed the button this many times:',
           ),
           Text(
-            '${counterProvider.counter}',
+            pokemonViewModel.urlState,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
         ],

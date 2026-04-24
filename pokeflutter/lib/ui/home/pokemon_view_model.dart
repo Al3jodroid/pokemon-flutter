@@ -25,6 +25,6 @@ class PokemonViewModel extends ChangeNotifier {
   void getPokemonImage() {
     _urlState = pokemonUseCase.generateUrlImage(_countPokemon);
     notifyListeners();
-    _countPokemon = _countPokemon++;
+    _countPokemon = _countPokemon + 1;
   }
 }

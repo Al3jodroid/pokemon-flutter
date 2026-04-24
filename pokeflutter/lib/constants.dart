@@ -1,2 +1,2 @@
 //Business rule for counter
-const int startCountValue = 0;
+const int startCountValue = 1;

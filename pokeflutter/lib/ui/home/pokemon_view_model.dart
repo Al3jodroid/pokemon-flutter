@@ -1,30 +1,47 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pokeflutter/constants.dart';
 import 'package:pokeflutter/interactor/pokemon_usecase.dart';
+import 'package:pokeflutter/model/data/pokemon_info.dart';
 
 class PokemonViewModel extends ChangeNotifier {
-  //Attributes to manage our business
-  String _urlState = "";
-  String get urlState => _urlState;
+  // We evolve from a simple String URL to our pure Domain Model
+  PokemonInfo? _pokemonState;
+  PokemonInfo? get pokemonState => _pokemonState;
 
-  //internal count used inside the viewmodel to manage
-  //the pokemon number sequence
+  // Internal count used inside the viewmodel to manage
+  // the pokemon number sequence
   int _countPokemon = startCountValue;
 
-  //Pokemon UseCase instance (private)
+  // Pokemon UseCase instance (private)
   final PokemonUseCase pokemonUseCase;
 
-  //Custom parametrizable constructor with dependency injection
+  // Custom parametrizable constructor with dependency injection
   PokemonViewModel(this.pokemonUseCase);
 
-  void getRandomPokemonImage() {
-    _urlState = pokemonUseCase.generateRandomUrlImage();
-    notifyListeners();
+  // Asynchronous method triggered by the UI
+  Future<void> getCompletePokemon() async {
+    debugPrint("Fetching Pokemon ID: $_countPokemon...");
+    // 1. We ask the UseCase asynchronously without freezing the UI thread
+    final result = await pokemonUseCase.getCompletePokemon(_countPokemon);
+
+    if (result != null) {
+      _pokemonState = result;
+
+      // 2. Golden Rule: Debug Console verification!
+      debugPrint("Pokemon Data Retrieved: ${_pokemonState.toString()}");
+
+      _countPokemon++;
+
+      // 3. We notify all listening widgets to rebuild
+      notifyListeners();
+    } else {
+      debugPrint("Failed to retrieve Pokemon data for ID: $_countPokemon (result was null)");
+    }
   }
 
-  void getPokemonImage() {
-    _urlState = pokemonUseCase.generateUrlImage(_countPokemon);
+  // Legacy method for random image generation
+  void getRandomPokemonImage() {
+    // If required for random image logic
     notifyListeners();
-    _countPokemon = _countPokemon + 1;
   }
 }

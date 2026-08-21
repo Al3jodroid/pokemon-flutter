@@ -33,6 +33,11 @@ dependencies:
   provider: ^6.1.5+1
   # Our new network antenna
   http: ^1.2.0
+  # Support for localized materials and widgets
+  flutter_localizations:
+    sdk: flutter
+  # Handles date formatting, plurals, and text directions behind the scenes
+  intl: ^0.19.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -59,6 +64,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # CRUCIAL: Tells Flutter to scan and compile dynamic code resources
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:

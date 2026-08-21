@@ -1,0 +1,7 @@
+{
+  "appTitle": "PokeFlutter v0.3",
+  "modeRandom": "Aleatorio",
+  "keyMovements": "Movimientos Clave",
+  "connectionError": "Ocurrió un error de conexión",
+  "noDataFound": "No se encontraron datos para este Pokémon."
+}
